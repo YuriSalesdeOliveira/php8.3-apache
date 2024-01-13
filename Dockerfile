@@ -2,8 +2,8 @@ FROM php:8.3-apache
 
 SHELL ["/bin/bash", "-c"]
 
-RUN apt-get update \
-    && apt-get install -y libfreetype-dev libjpeg62-turbo-dev libpng-dev libwebp-dev libgif-dev libzip-dev
+    RUN apt-get update \
+        && apt-get install -y libfreetype-dev libjpeg62-turbo-dev libpng-dev libwebp-dev libgif-dev libzip-dev unzip
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd bcmath pdo_mysql zip
@@ -14,7 +14,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer
 
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_21.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g gulp-cli
 
